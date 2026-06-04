@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <nav class="top-nav">
+        <a href="/">Home</a>
+        <a href="/add_book">Add Book</a>
+        <a href="/add_author">Add Author</a>
+    </nav>
+
+    <header class="hero">
+
+        <h1>My Library</h1>
+
+        <p>
+            Your personal reading space
+        </p>
+
+    </header>
+
+    <section class="search-section">
+
+        <form method="GET" action="/" class="search-form">
+
+            <div class="search-wrapper">
+
+                <span class="search-icon">🔍</span>
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search books by title..."
+                >
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <section class="sort-section">
+
+        <span class="sort-label">
+            Sort by:
+        </span>
+
+        <a class="chip" href="/">All</a>
+
+        <a class="chip" href="/?sort=title">
+            Title
+        </a>
+
+        <a class="chip" href="/?sort=author">
+            Author
+        </a>
+
+    </section>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="flash">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if books %}
+
+    <section class="books-grid">
+
+        {% for book in books %}
+
+        <article class="book-card">
+
+            <img
+                class="book-cover"
+                src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+                alt="{{ book.title }}"
+            >
+
+            <div class="book-content">
+
+                <div>
+
+                    <h3 class="book-title">
+                        {{ book.title }}
+                    </h3>
+
+                    <p class="book-author">
+                        {{ book.author.name }}
+                    </p>
+
+                </div>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_book', book_id=book.id) }}"
+                    onsubmit="return confirm('Delete this book?');"
+                >
+                    <button class="delete-btn" type="submit">
+                        Delete Book
+                    </button>
+                </form>
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </section>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <h3>No books found 📖</h3>
+
+        <p>
+            Try another search or add a new book.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

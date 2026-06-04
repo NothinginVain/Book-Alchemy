@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Book</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:#f7f5f1;
+    color:#2f2f2f;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:2rem;
+}
+
+.card{
+    width:100%;
+    max-width:650px;
+    background:white;
+    padding:2rem;
+    border-radius:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+h1{
+    color:#35684d;
+    margin-bottom:1.5rem;
+}
+
+.form-group{
+    margin-bottom:1.2rem;
+}
+
+label{
+    display:block;
+    margin-bottom:.5rem;
+    font-weight:500;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px 16px;
+    border:none;
+    border-radius:14px;
+    background:#f8f8f8;
+    font-size:1rem;
+}
+
+input:focus,
+select:focus{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(53,104,77,.15);
+}
+
+.actions{
+    display:flex;
+    gap:1rem;
+    margin-top:1.5rem;
+}
+
+.btn{
+    border:none;
+    padding:14px 20px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:.95rem;
+}
+
+.btn-primary{
+    background:#35684d;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#2d5a42;
+}
+
+.btn-secondary{
+    text-decoration:none;
+    background:#f1f1f1;
+    color:#444;
+    display:flex;
+    align-items:center;
+}
+
+.success{
+    background:#edf7ee;
+    color:#35684d;
+    padding:1rem;
+    border-radius:14px;
+    margin-bottom:1rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>📚 Add a New Book</h1>
+
+    {% if message %}
+    <div class="success">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form action="/add_book" method="POST">
+
+        <div class="form-group">
+            <label>Book Title</label>
+            <input type="text" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="text" name="isbn" required>
+        </div>
+
+        <div class="form-group">
+            <label>Publication Year</label>
+            <input type="number" name="pub_year">
+        </div>
+
+        <div class="form-group">
+            <label>Author</label>
+            <select name="author_id">
+
+                {% for author in authors %}
+                    <option value="{{ author.id }}">
+                        {{ author.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" type="submit">
+                Save Book
+            </button>
+
+            <a class="btn-secondary" href="/">
+                ← Back to Library
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

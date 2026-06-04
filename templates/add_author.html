@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Author</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Inter",sans-serif;
+    background:#f7f5f1;
+    color:#2f2f2f;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:2rem;
+}
+
+.card{
+    width:100%;
+    max-width:650px;
+    background:white;
+    padding:2rem;
+    border-radius:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+}
+
+h1{
+    color:#35684d;
+    margin-bottom:1.5rem;
+}
+
+.form-group{
+    margin-bottom:1.2rem;
+}
+
+label{
+    display:block;
+    margin-bottom:.5rem;
+    font-weight:500;
+}
+
+input{
+    width:100%;
+    padding:14px 16px;
+    border:none;
+    border-radius:14px;
+    background:#f8f8f8;
+}
+
+input:focus{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(53,104,77,.15);
+}
+
+.actions{
+    display:flex;
+    gap:1rem;
+    margin-top:1.5rem;
+}
+
+.btn{
+    border:none;
+    padding:14px 20px;
+    border-radius:14px;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:#35684d;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#2d5a42;
+}
+
+.btn-secondary{
+    background:#f1f1f1;
+    text-decoration:none;
+    color:#444;
+    padding:14px 20px;
+    border-radius:14px;
+}
+
+.success{
+    background:#edf7ee;
+    color:#35684d;
+    padding:1rem;
+    border-radius:14px;
+    margin-bottom:1rem;
+}
+
+.optional{
+    color:#888;
+    font-size:.85rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>✍️ Add an Author</h1>
+
+    {% if message %}
+    <div class="success">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form action="/add_author" method="POST">
+
+        <div class="form-group">
+            <label>Author Name</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Birth Date</label>
+            <input type="date" name="birthdate" required>
+        </div>
+
+        <div class="form-group">
+            <label>Date of Death</label>
+            <input type="date" name="date_of_death">
+            <div class="optional">Optional</div>
+        </div>
+
+        <div class="actions">
+
+            <button class="btn btn-primary" type="submit">
+                Save Author
+            </button>
+
+            <a class="btn-secondary" href="/">
+                ← Back to Library
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
