@@ -15,7 +15,7 @@ import os
 
 app = Flask(__name__)
 
-app.secret_key = 'joséramos'
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = (
